@@ -29,4 +29,13 @@ class Network
     grouping
   end
 
+  def shows_by_actor
+    
+  end
+
+  def prolific_actors
+    list = actors_by_show.max_by { |actor, shows| shows.count > 1 }
+    list.keys
+  end
+
 end
