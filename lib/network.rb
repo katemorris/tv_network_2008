@@ -23,8 +23,9 @@ class Network
 
   def actors_by_show
     grouping = Hash.new
-    grouping[@shows[0]] = @shows[0].characters.map { |character| character.actor }
-    grouping[@shows[1]] = @shows[1].characters.map { |character| character.actor }
+    @shows.each do |show|
+      grouping[show] = show.characters.map { |character| character.actor }
+    end
     grouping
   end
 
