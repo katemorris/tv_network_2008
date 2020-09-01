@@ -46,8 +46,39 @@ class NetworkTest < Minitest::Test
     @nbc.add_show(@knight_rider)
     @nbc.add_show(@parks_and_rec)
 
-    expected = {@knight_rider => [@michael_knight.actor, @kitt.actor], @parks_and_rec => [@leslie_knope.actor, @ron_swanson.actor]}
+    expected = {
+      @knight_rider => [@michael_knight.actor, @kitt.actor],
+      @parks_and_rec => [@leslie_knope.actor, @ron_swanson.actor]
+    }
     assert_equal expected, @nbc.actors_by_show
+  end
+
+  def test_can_see_shows_by_actor
+    mitch = Character.new({name: "Mitch Buchannon", actor: "David Hasselhoff", salary: 1_200_000})
+    baywatch = Show.new("Baywatch", "Gregory Bonann", [mitch])
+
+    @nbc.add_show(@knight_rider)
+    @nbc.add_show(baywatch)
+    @nbc.add_show(@parks_and_rec)
+
+    expected = {
+         "David Hasselhoff" => [@knight_rider, baywatch],
+         "William Daniels" => [@knight_rider],
+         "Amy Poehler" => [@parks_and_rec],
+         "Nick Offerman" => [@parks_and_rec]
+       }
+    assert_equal expected, @nbc.shows_by_actor
+  end
+
+  def test_can_return_prolific_actors
+    mitch = Character.new({name: "Mitch Buchannon", actor: "David Hasselhoff", salary: 1_200_000})
+    baywatch = Show.new("Baywatch", "Gregory Bonann", [mitch])
+
+    @nbc.add_show(@knight_rider)
+    @nbc.add_show(baywatch)
+    @nbc.add_show(@parks_and_rec)
+
+    assert_equal ["David Hasselhoff"], @nbc.prolific_actors
   end
 
 end

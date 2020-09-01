@@ -29,4 +29,18 @@ class Network
     grouping
   end
 
+  def shows_by_actor
+    grouping = Hash.new
+    all_characters.each do |character|
+      grouping[character.actor] = @shows.select { |show| show.actors.include?(character.actor)}
+    end
+    grouping
+  end
+
+  def prolific_actors
+    require "pry"; binding.pry
+    list = shows_by_actor.values.max_by { |shows| shows.count > 1 }
+    list.keys
+  end
+
 end
