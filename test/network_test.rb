@@ -28,7 +28,8 @@ class NetworkTest < Minitest::Test
   end
 
   def test_the_network_can_have_shows
-
+    @nbc.add_show(@knight_rider)
+    @nbc.add_show(@parks_and_rec)
 
     assert_equal [@knight_rider, @parks_and_rec], @nbc.shows
   end

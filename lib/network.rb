@@ -30,11 +30,16 @@ class Network
   end
 
   def shows_by_actor
-    
+    grouping = Hash.new
+    all_characters.each do |character|
+      grouping[character.actor] = @shows.select { |show| show.actors.include?(character.actor)}
+    end
+    grouping
   end
 
   def prolific_actors
-    list = actors_by_show.max_by { |actor, shows| shows.count > 1 }
+    require "pry"; binding.pry
+    list = shows_by_actor.values.max_by { |shows| shows.count > 1 }
     list.keys
   end
 
