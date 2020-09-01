@@ -37,14 +37,16 @@ class NetworkTest < Minitest::Test
   def test_can_return_main_characters
     @nbc.add_show(@knight_rider)
     @nbc.add_show(@parks_and_rec)
-    
+
     assert_equal [@kitt], @nbc.main_characters
 
   end
 
   def test_can_return_actors_by_show
-    skip
-    expected = {@knight_rider => [@kitt.actor, @knight_rider.actor], @parks_and_rec => [@leslie_knope.actor, @ron_swanson.actor]}
+    @nbc.add_show(@knight_rider)
+    @nbc.add_show(@parks_and_rec)
+
+    expected = {@knight_rider => [@michael_knight.actor, @kitt.actor], @parks_and_rec => [@leslie_knope.actor, @ron_swanson.actor]}
     assert_equal expected, @nbc.actors_by_show
   end
 
